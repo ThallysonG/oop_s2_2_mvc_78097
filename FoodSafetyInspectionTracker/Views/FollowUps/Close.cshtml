@@ -1,0 +1,24 @@
+﻿@model FoodSafetyInspectionTracker.Models.FollowUp
+
+@{
+    ViewData["Title"] = "Close Follow-Up";
+}
+
+<h2>Close Follow-Up</h2>
+
+<div class="card p-3">
+    <p><strong>Premises:</strong> @Model.Inspection?.Premises?.Name</p>
+    <p><strong>Inspection Date:</strong> @Model.Inspection?.InspectionDate.ToShortDateString()</p>
+    <p><strong>Due Date:</strong> @Model.DueDate.ToShortDateString()</p>
+</div>
+
+<form asp-action="CloseConfirmed" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <div class="mb-3">
+        <label class="form-label">Closed Date</label>
+        <input type="date" name="closedDate" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-success">Confirm Close</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>

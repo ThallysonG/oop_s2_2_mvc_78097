@@ -1,0 +1,49 @@
+﻿@model FoodSafetyInspectionTracker.ViewModels.FollowUpCreateViewModel
+@using FoodSafetyInspectionTracker.Models
+@using FoodSafetyInspectionTracker.Enums
+
+@{
+    ViewData["Title"] = "Create Follow-Up";
+    var inspections = ViewBag.Inspections as List<Inspection>;
+}
+
+<h2>Create Follow-Up</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="InspectionId" class="form-label"></label>
+        <select asp-for="InspectionId" class="form-select">
+            <option value="">Select inspection</option>
+            @foreach (var item in inspections!)
+            {
+                <option value="@item.Id">
+                    #@item.Id - @item.Premises!.Name - @item.InspectionDate.ToShortDateString()
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DueDate" class="form-label"></label>
+        <input asp-for="DueDate" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Status" class="form-label"></label>
+        <select asp-for="Status" class="form-select" asp-items="Html.GetEnumSelectList<FollowUpStatus>()"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ClosedDate" class="form-label"></label>
+        <input asp-for="ClosedDate" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

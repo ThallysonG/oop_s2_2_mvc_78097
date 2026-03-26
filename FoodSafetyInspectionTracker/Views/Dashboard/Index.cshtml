@@ -1,0 +1,80 @@
+﻿@model FoodSafetyInspectionTracker.ViewModels.DashboardViewModel
+@using FoodSafetyInspectionTracker.Enums
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <label class="form-label">Town</label>
+        <select name="town" class="form-select">
+            <option value="">All</option>
+            @foreach (var town in Model.Towns)
+            {
+                <option value="@town" selected="@(Model.Filters.Town == town)">@town</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Risk Rating</label>
+        <select name="riskRating" class="form-select">
+            <option value="">All</option>
+            @foreach (var item in Enum.GetValues(typeof(RiskRating)))
+            {
+                var rr = (RiskRating)item;
+                <option value="@rr" selected="@(Model.Filters.RiskRating == rr)">@rr</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4 d-flex align-items-end">
+        <button class="btn btn-primary me-2" type="submit">Filter</button>
+        <a asp-action="Index" class="btn btn-secondary">Clear</a>
+    </div>
+</form>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5>Inspections this month</h5>
+            <h3>@Model.InspectionsThisMonth</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5>Failed inspections this month</h5>
+            <h3>@Model.FailedInspectionsThisMonth</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5>Open overdue follow-ups</h5>
+            <h3>@Model.OpenOverdueFollowUps</h3>
+        </div>
+    </div>
+</div>
+
+<h4>Filtered Premises</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Town</th>
+            <th>Risk Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.FilteredPremises)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Town</td>
+                <td>@item.RiskRating</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,13 @@
+﻿@model FoodSafetyInspectionTracker.Models.ErrorViewModel
+
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1>Something went wrong</h1>
+<p>A friendly error occurred while processing your request.</p>
+
+@if (Model.ShowRequestId)
+{
+    <p><strong>Request ID:</strong> @Model.RequestId</p>
+}
