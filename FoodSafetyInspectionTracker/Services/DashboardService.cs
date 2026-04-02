@@ -17,6 +17,7 @@ namespace FoodSafetyInspectionTracker.Services
             _logger = logger;
         }
 
+        // DashboardService.cs
         public async Task<DashboardViewModel> GetDashboardAsync(string? town, string? riskRating)
         {
             var today = DateTime.Today;
