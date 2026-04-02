@@ -1,78 +1,90 @@
 ﻿using FoodSafetyInspectionTracker.Data;
 using FoodSafetyInspectionTracker.Enums;
+using FoodSafetyInspectionTracker.Models;
+using FoodSafetyInspectionTracker.Services;
 using FoodSafetyInspectionTracker.Services.Interfaces;
-using FoodSafetyInspectionTracker.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
+using xUnit;
 
-namespace FoodSafetyInspectionTracker.Services
+namespace FoodSafetyInspectionTracker.Tests
 {
-    public class DashboardService : IDashboardService
+    public class DashboardServiceTests
     {
-        private readonly ApplicationDbContext _context;
-        private readonly ILogger<DashboardService> _logger;
-
-        public DashboardService(ApplicationDbContext context, ILogger<DashboardService> logger)
+        private ApplicationDbContext CreateContext()
         {
-            _context = context;
-            _logger = logger;
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var context = new ApplicationDbContext(options);
+            context.Database.EnsureCreated();
+
+            var dublinPremises = new Premises
+            {
+                Id = 1,
+                Name = "Dublin Cafe",
+                Address = "1 Main Street",
+                Town = "Dublin",
+                RiskRating = RiskRating.High
+            };
+
+            var corkPremises = new Premises
+            {
+                Id = 2,
+                Name = "Cork Bistro",
+                Address = "2 River Lane",
+                Town = "Cork",
+                RiskRating = RiskRating.Medium
+            };
+
+            var inspection = new Inspection
+            {
+                Id = 1,
+                PremisesId = 1,
+                InspectionDate = DateTime.Today.AddDays(-10),
+                Score = 45,
+                Outcome = InspectionOutcome.Fail,
+                Notes = "Test inspection"
+            };
+
+            var followUp = new FollowUp
+            {
+                Id = 1,
+                InspectionId = 1,
+                DueDate = DateTime.Today.AddDays(-2),
+                Status = FollowUpStatus.Open
+            };
+
+            context.Premises.AddRange(dublinPremises, corkPremises);
+            context.Inspections.Add(inspection);
+            context.FollowUps.Add(followUp);
+            context.SaveChanges();
+
+            return context;
         }
 
-        // DashboardService.cs
-        public async Task<DashboardViewModel> GetDashboardAsync(string? town, string? riskRating)
+        [Fact]
+        public async Task Overdue_FollowUps_Query_Returns_Correct_Count()
         {
-            var today = DateTime.Today;
-            var startMonth = new DateTime(today.Year, today.Month, 1);
-            var endMonth = startMonth.AddMonths(1);
+            var context = CreateContext();
 
-            var premisesQuery = _context.Premises.AsQueryable();
+            var service = new DashboardService(context, NullLogger.Instance);
+            var result = await service.GetDashboardAsync(null, null);
 
-            if (!string.IsNullOrWhiteSpace(town))
-            {
-                premisesQuery = premisesQuery.Where(p => p.Town == town);
-            }
+            Assert.True(result.OpenOverdueFollowUps >= 1);
+        }
 
-            if (!string.IsNullOrWhiteSpace(riskRating) &&
-                Enum.TryParse<RiskRating>(riskRating, out var parsedRisk))
-            {
-                premisesQuery = premisesQuery.Where(p => p.RiskRating == parsedRisk);
-            }
+        [Fact]
+        public async Task Dashboard_Filter_By_Town_Works()
+        {
+            var context = CreateContext();
+            var service = new DashboardService(context, NullLogger.Instance);
 
-            var filteredPremisesIds = await premisesQuery.Select(p => p.Id).ToListAsync();
+            var result = await service.GetDashboardAsync("Dublin", null);
 
-            var inspectionsThisMonth = await _context.Inspections
-                .Where(i => i.InspectionDate >= startMonth && i.InspectionDate < endMonth)
-                .Where(i => filteredPremisesIds.Contains(i.PremisesId))
-                .CountAsync();
-
-            var failedInspectionsThisMonth = await _context.Inspections
-                .Where(i => i.InspectionDate >= startMonth && i.InspectionDate < endMonth)
-                .Where(i => i.Outcome == InspectionOutcome.Fail)
-                .Where(i => filteredPremisesIds.Contains(i.PremisesId))
-                .CountAsync();
-
-            var openOverdueFollowUps = await _context.FollowUps
-                .Include(f => f.Inspection)
-                .Where(f => f.Status == FollowUpStatus.Open && f.DueDate < today)
-                .Where(f => f.Inspection != null && filteredPremisesIds.Contains(f.Inspection.PremisesId))
-                .CountAsync();
-
-            _logger.LogInformation(
-                "Dashboard loaded with filters Town={Town}, RiskRating={RiskRating}, InspectionsThisMonth={InspectionsThisMonth}, FailedInspectionsThisMonth={FailedInspectionsThisMonth}, OpenOverdueFollowUps={OpenOverdueFollowUps}",
-                town, riskRating, inspectionsThisMonth, failedInspectionsThisMonth, openOverdueFollowUps);
-
-            return new DashboardViewModel
-            {
-                Filters = new DashboardFilterViewModel
-                {
-                    Town = town,
-                    RiskRating = Enum.TryParse<RiskRating>(riskRating, out var rr) ? rr : null
-                },
-                InspectionsThisMonth = inspectionsThisMonth,
-                FailedInspectionsThisMonth = failedInspectionsThisMonth,
-                OpenOverdueFollowUps = openOverdueFollowUps,
-                Towns = await _context.Premises.Select(p => p.Town).Distinct().OrderBy(t => t).ToListAsync(),
-                FilteredPremises = await premisesQuery.OrderBy(p => p.Name).ToListAsync()
-            };
+            Assert.NotEmpty(result.FilteredPremises);
+            Assert.All(result.FilteredPremises, p => Assert.Equal("Dublin", p.Town));
         }
     }
 }
