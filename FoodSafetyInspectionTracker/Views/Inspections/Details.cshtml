@@ -1,0 +1,29 @@
+﻿@model FoodSafetyInspectionTracker.Models.Inspection
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Inspection Details</h1>
+
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-2">Premise</dt>
+    <dd class="col-sm-10">@Model.Premise?.Name</dd>
+
+    <dt class="col-sm-2">Date</dt>
+    <dd class="col-sm-10">@Model.InspectionDate.ToString("yyyy-MM-dd")</dd>
+
+    <dt class="col-sm-2">Score</dt>
+    <dd class="col-sm-10">@Model.Score</dd>
+
+    <dt class="col-sm-2">Outcome</dt>
+    <dd class="col-sm-10">@Model.Outcome</dd>
+
+    <dt class="col-sm-2">Notes</dt>
+    <dd class="col-sm-10">@Model.Notes</dd>
+</dl>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

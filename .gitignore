@@ -1,0 +1,23 @@
+## Visual Studio
+.vs/
+*.user
+*.suo
+
+## Build
+bin/
+obj/
+
+## Logs
+Logs/
+
+## Database
+*.db
+*.db-shm
+*.db-wal
+
+## Rider / VS Code
+.idea/
+.vscode/
+
+## Test results
+TestResults/

@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37111.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodSafetyInspectionTracker", "FoodSafetyInspectionTracker\FoodSafetyInspectionTracker.csproj", "{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodSafetyInspectionTracker.Tests", "FoodSafetyInspectionTracker.Tests\FoodSafetyInspectionTracker.Tests.csproj", "{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{94AB128A-54DD-437E-9532-B96E00E3578A}"
+	ProjectSection(SolutionItems) = preProject
+		ci.yml = ci.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}.Debug|x64.Build.0 = Debug|Any CPU
+		{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}.Debug|x86.Build.0 = Debug|Any CPU
+		{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}.Release|x64.ActiveCfg = Release|Any CPU
+		{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}.Release|x64.Build.0 = Release|Any CPU
+		{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}.Release|x86.ActiveCfg = Release|Any CPU
+		{E09C107B-F5C0-4D14-B760-0B5B0871B7F4}.Release|x86.Build.0 = Release|Any CPU
+		{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}.Debug|x64.Build.0 = Debug|Any CPU
+		{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}.Debug|x86.Build.0 = Debug|Any CPU
+		{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}.Release|x64.ActiveCfg = Release|Any CPU
+		{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}.Release|x64.Build.0 = Release|Any CPU
+		{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}.Release|x86.ActiveCfg = Release|Any CPU
+		{7EBBD012-165C-40FB-BC6F-BA02C7088E0D}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{94AB128A-54DD-437E-9532-B96E00E3578A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F0071FE-7C94-4149-A55C-CB1AF96CAD33}
+	EndGlobalSection
+EndGlobal

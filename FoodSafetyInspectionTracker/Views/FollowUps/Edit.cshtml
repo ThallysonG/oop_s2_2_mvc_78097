@@ -1,0 +1,49 @@
+﻿@model FoodSafetyInspectionTracker.Models.FollowUp
+
+@{
+    ViewData["Title"] = "Edit FollowUp";
+}
+
+<h1>Edit FollowUp</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="InspectionId" class="form-label"></label>
+                <select asp-for="InspectionId" asp-items="ViewBag.InspectionId" class="form-select"></select>
+                <span asp-validation-for="InspectionId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DueDate" class="form-label"></label>
+                <input asp-for="DueDate" type="date" class="form-control" />
+                <span asp-validation-for="DueDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Status" class="form-label"></label>
+                <select asp-for="Status" class="form-select">
+                    <option value="Open">Open</option>
+                    <option value="Closed">Closed</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ClosedDate" class="form-label"></label>
+                <input asp-for="ClosedDate" type="date" class="form-control" />
+                <span asp-validation-for="ClosedDate" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Back</a>
+        </form>
+    </div>
+</div>

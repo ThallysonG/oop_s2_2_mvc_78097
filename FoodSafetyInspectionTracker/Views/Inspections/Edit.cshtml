@@ -1,0 +1,50 @@
+﻿@model FoodSafetyInspectionTracker.Models.Inspection
+
+@{
+    ViewData["Title"] = "Edit Inspection";
+}
+
+<h1>Edit Inspection</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="PremiseId" class="form-label"></label>
+                <select asp-for="PremiseId" asp-items="ViewBag.PremiseId" class="form-select"></select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="InspectionDate" class="form-label"></label>
+                <input asp-for="InspectionDate" type="date" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Score" class="form-label"></label>
+                <input asp-for="Score" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Outcome" class="form-label"></label>
+                <select asp-for="Outcome" class="form-select">
+                    <option value="Pass">Pass</option>
+                    <option value="Fail">Fail</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Notes" class="form-label"></label>
+                <textarea asp-for="Notes" class="form-control"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Back</a>
+
+        </form>
+    </div>
+</div>

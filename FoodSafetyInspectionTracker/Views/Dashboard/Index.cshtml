@@ -1,0 +1,81 @@
+﻿@model FoodSafetyInspectionTracker.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>Dashboard</h1>
+
+<hr />
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <label class="form-label">Town</label>
+        <select name="town" class="form-select">
+            <option value="">All Towns</option>
+            @foreach (var town in Model.AvailableTowns)
+            {
+                if (town == Model.SelectedTown)
+                {
+                    <option value="@town" selected>@town</option>
+                }
+                else
+                {
+                    <option value="@town">@town</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Risk Rating</label>
+        <select name="riskRating" class="form-select">
+            <option value="">All Risk Ratings</option>
+            @foreach (var risk in Model.AvailableRiskRatings)
+            {
+                if (risk == Model.SelectedRiskRating)
+                {
+                    <option value="@risk" selected>@risk</option>
+                }
+                else
+                {
+                    <option value="@risk">@risk</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary me-2">Filter</button>
+        <a asp-action="Index" class="btn btn-secondary">Clear</a>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 class="card-title">Inspections This Month</h5>
+                <p class="card-text fs-2">@Model.InspectionsThisMonth</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+                <h5 class="card-title">Failed Inspections This Month</h5>
+                <p class="card-text fs-2">@Model.FailedInspectionsThisMonth</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5 class="card-title">Overdue FollowUps</h5>
+                <p class="card-text fs-2">@Model.OverdueFollowUps</p>
+            </div>
+        </div>
+    </div>
+</div>
