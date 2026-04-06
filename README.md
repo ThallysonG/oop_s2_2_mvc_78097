@@ -121,3 +121,6 @@ GitHub Actions pipeline:
 ## 📌 Author
 
 Thallyson Gama
+
+Last update: testing CI workflow.
+

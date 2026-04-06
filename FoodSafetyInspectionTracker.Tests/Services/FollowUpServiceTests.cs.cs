@@ -150,6 +150,7 @@ namespace FoodSafetyInspectionTracker.Tests.Services
 
             var result = await service.GetAllAsync();
 
+
             Assert.Single(result);
             Assert.Equal("Open", result[0].Status);
             Assert.True(result[0].DueDate < DateTime.UtcNow);
